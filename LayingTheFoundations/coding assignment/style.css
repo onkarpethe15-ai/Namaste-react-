@@ -1,0 +1,33 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+#coc {
+  color: blueviolet;
+}
+.container {
+  display: flex;
+  background-color: black;
+  color: white;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px;
+}
+.logo {
+  height: 40px;
+}
+.nav {
+  display: flex;
+}
+ul li {
+  margin: 8px;
+  text-decoration: none;
+  list-style: none;
+}
+.search-box {
+  padding: 5px;
+  width: 200px;
+  border: 10px solid black;
+  height: 30px;
+  margin-left: -750px;
+}

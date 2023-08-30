@@ -7,9 +7,23 @@ const Body = () => {
     const handleTopRatedClick = () => {
         setState(top_rated)
     }
+    const handelsearch = () => {
+        let input_text = document.getElementById('search-box').value
+        if (input_text == '' || input_text == null || input_text == undefined) {
+            setState(reslist)
+        }
+        else {
+            const searched_restos = state.filter((res) => {
+                return res.info.name[0].toLowerCase() == input_text[0].toLowerCase()
+            })
+            setState(searched_restos)
+        }
+    }
     return (
         <>
             <button onClick={handleTopRatedClick}>Top resturants</button>
+            <input onInput={handelsearch} id="search-box" type="text" placeholder="search the restaurants" />
+
             <div className="main-section">
                 {state.map((res) => <Cards key={res.info.id} resdata={res} />)}
             </div>

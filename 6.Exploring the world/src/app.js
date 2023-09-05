@@ -11,7 +11,6 @@ const Applyaout = () => {
         <div className="">
 
             <Header />
-            <Search />
             <Body />
 
         </div>

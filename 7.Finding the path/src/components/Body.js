@@ -2,6 +2,7 @@ import api_url from "../../utils/constant"
 import Cards from "./Cards"
 import Shimmer from "./shimmer"
 import { useState, useEffect } from "react"
+import { Link } from "react-router-dom"
 const Body = () => {
     const [state, setState] = useState([])
     const [filteredarr, setfilteredarr] = useState()
@@ -9,6 +10,7 @@ const Body = () => {
     useEffect(() => {
         fetch_dat();
     }, [])
+    console.log(useEffect)
     const fetch_dat = async () => {
         let data = await fetch(api_url)
         let json = await data.json()
@@ -33,7 +35,7 @@ const Body = () => {
             <input value={serachstate} onInput={(e) => { setsearchstate(e.target.value) }} id="search-box" type="text" placeholder="search the restaurants" />
             <button onClick={handelsearch}>Serach the resto</button>
             <div className="main-section">
-                {state.length == 0 ? <Shimmer /> : filteredarr.map((res) => <Cards key={res.info.id} resdata={res} />)}
+                {state.length == 0 ? <Shimmer /> : filteredarr.map((res) => <Link to="/menu" key={res.info.id} ><Cards resdata={res} /></Link>)}
 
                 {/* {state.map((res) => <Cards key={res.info.id} resdata={res} />)} */}
             </div>

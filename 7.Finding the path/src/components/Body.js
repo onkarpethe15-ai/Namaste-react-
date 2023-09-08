@@ -12,14 +12,14 @@ const Body = () => {
     const fetch_dat = async () => {
         let data = await fetch(api_url)
         let json = await data.json()
-        const card = json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+        const card = json.data.success.cards[3].gridWidget.gridElements.infoWithStyle.restaurants
         // let ans = card.map((rest) => rest.info.avgRating)
         setfilteredarr(card)
         setState(card)
     }
-    const top_rated = state.filter((res) => res.info.avgRating > 4)
     const handleTopRatedClick = () => {
-        setState(top_rated)
+        const top_rated = state.filter((res) => res.info.avgRating > 4)
+        setfilteredarr(top_rated)
     }
     const handelsearch = () => {
         const filterd_arr = state.filter((res) => {
@@ -32,7 +32,6 @@ const Body = () => {
             <button onClick={handleTopRatedClick}>Top resturants</button>
             <input value={serachstate} onInput={(e) => { setsearchstate(e.target.value) }} id="search-box" type="text" placeholder="search the restaurants" />
             <button onClick={handelsearch}>Serach the resto</button>
-
             <div className="main-section">
                 {state.length == 0 ? <Shimmer /> : filteredarr.map((res) => <Cards key={res.info.id} resdata={res} />)}
 

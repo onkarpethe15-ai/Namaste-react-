@@ -10,10 +10,10 @@ const Header = () => {
         <div className="header">
             <div><img className="logo-img" src={LOGO_CDN} alt="" /></div>
             <div><ul className="nav-items">
-                <li>home</li>
-                <li><Link to="/About">About</Link ></li>
-                <li><a href="">contact</a></li>
-                <li> Link to cart</li>
+                <li><Link to="/">home</Link></li>
+                <li>About</li>
+                <li>contact</li>
+                <li>cart</li>
                 <button onClick={handler}>{btntxt} </button>
             </ul>
             </div>

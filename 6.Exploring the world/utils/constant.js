@@ -1,2 +1,2 @@
-const api_url = "https://www.swiggy.com/mapi/homepage/getCards?lat=18.990088&lng=75.7531324"
+const api_url = "https://corsproxy.io/?https://www.swiggy.com/dapi/restaurants/list/v5?lat=21.1702401&lng=72.83106070000001&page_type=DESKTOP_WEB_LISTING"
 export default api_url

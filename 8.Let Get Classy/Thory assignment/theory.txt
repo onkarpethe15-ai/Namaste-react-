@@ -1,77 +1,63 @@
-Q: What is the difference between Named export, Default export, and * as export?
-A: ES6 provides us to import & export a module and use it in other files. ES6 provides two ways to export a module from a file: named export and default export. In Named export, one can have multiple named exports per file. Then import the specific exports they want surrounded in {} braces. The name of imported module has to be the same as the name of the exported module. In Named export, the component is exported from MyComponent.js file like:
+Q: How do you create Nested Routes react-router-dom configuration?
+A: We can create a Nested Routes inside a react router configuration as follows: first call createBrowserRouter for routing different pages
 
-export const MyComponent = () => {}
-export const MyComponent2 = () => {}
-and the component is imported from MyComponent.js file like: here we must use {} in MyComponent.
+const router = createBrowserRouter([
+   {
+      path: "/", // show path for routing
+      element: <Parent />, // show component for particular path
+      errorElement: <Error />, // show error component for path is different
+      children: [ // show children component for routing
+         {
+            path: "/path",
+            element: <Child />
+         }
+      ],
+   }
+])
+Now we can create a nested routing for /path using children again as follows:
 
-// ex. importing a single named export
-import { MyComponent } from "./MyComponent";
+const router = createBrowserRouter([
+   {
+      path: "/",
+      element: <Parent />,
+      errorElement: <Error />,
+      children: [
+         {
+            path: "/path",
+            element: <Child />,
+            children: [ // nested routing for subchild
+               {
+                  path: "/child",
+                  element: <SubChild />,
+               }
+            ],
+         }
+      ],
+   }
+])
+Q: Read about createHashRouter, createMemoryRouter from React Router docs.
+A: createHashRouter is useful if you are unable to configure your web server to direct all traffic to your React Router application. Instead of using normal URLs, it will use the hash (#) portion of the URL to manage the "application URL". Other than that, it is functionally the same as createBrowserRouter. For more reference Read more
 
-// ex. importing multiple named exports
-import { MyComponent, MyComponent2 } from "./MyComponent";
+createMemoryRouter Instead of using the browsers history a memory router manages it's own history stack in memory. It's primarily useful for testing and component development tools like Storybook, but can also be used for running React Router in any non-browser environment. For more reference Read more
 
-// ex. giving a named import a different name by using "as":
-import { MyComponent2 as MyNewComponent } from "./MyComponent";
-In Default export, One can have only one default export per file. The naming of import is completely independent in default export and we can use any name we like. In Default export, the component is exported from MyComponent.js file like:
+Q: What is the order of life cycle method calls in Class Based Components?
+A: Following is the order of lifecycle methods calls in Class Based Components:
 
-const MyComponent = () => {}
-export default MyComponent;
-and the component is imported from MyComponent.js file like: here we must omit {} in MyComponent.
+constructor()
+render ()
+componentDidMount()
+componentDidUpdate()
+componentWillUnmount()
+For more reference React-Lifecycle-methods-Diagram
 
-import MyComponent from "./MyComponent";
-In * as export, it is used to import the whole module as a component and access the components inside the module. In * as export, the component is exported from MyComponent.js file like:
+Q: Why do we use componentDidMount?
+A: The componentDidMount() method allows us to execute the React code when the component is already placed in the DOM (Document Object Model). This method is called during the Mounting phase of the React Life-cycle i.e after the component is rendered. Wwe can run any piece of react code to modify the components. For ex. It's the best place to make API calls.
 
-export const MyComponent = () => {}
-export const MyComponent2 = () => {}
-export const MyComponent3 = () => {}
-and the component is imported from MyComponent.js file like:
+Q: Why do we use componentWillUnmount? Show with example.
+A: componentWillUnmount() is useful for the cleanup of the application when we switch routes from one place to another. Since we are working with a SPA(Single Page Application) the component process always runs in the background even if we switch to another route. So it is required to stop those processes before leaving the page. If we revisit the same page, a new process starts that affects the browser performance. For example, in Repo class, during componentDidMount() a timer is set with an interval of every one second to print in console. When the component is unmounted (users moves to a different page), the timer will be running in the background, which we might not even realize and causing huge performance issue. To avoid such situations the cleanup function can be done in componentWillUnmount, in this example clearInterval(timer) to clear the timer interval before unmounting Repo component.
 
-import * as MainComponents from "./MyComponent";
-Now we can use them in JSX as:
+Q: (Research) Why do we use super(props) in constructor?
+A: super(props) is used to inherit the properties and access of variables of the React parent class when we initialize our component. super() is used inside constructor of a class to derive the parent's all properties inside the class that extended it. If super() is not used, then Reference Error : Must call super constructor in derived classes before accessing 'this' or returning from derived constructor is thrown in the console. The main difference between super() and super(props) is the this.props is undefined in child's constructor in super() but this.props contains the passed props if super(props) is used.
 
-<MainComponents.MyComponent />
-<MainComponents.MyComponent2 />
-<MainComponents.MyComponent3 />
-We can use Named export and Default export together. So you should export like:
-
-export const MyComponent2 = () => {}
-const MyComponent = () => {}
-export default MyComponent;
-and import like:
-
-import MyComponent, {MyComponent2} from "./MyComponent";
-Q: What is the importance of config.js file?
-A: config.js files are essentially editable text files that contain information required for the successful operation of a program. The files are structured in a particular way, formatted to be user configurable. Most of the computer programs we use: whether office suites, web browsers, even video games are configured via menu interfaces. Configuration files are very simple in structure. For instance, if you were to write an application, and the only thing it ever needed to know was its user's preferred name, then its one and only config file could contain exactly one word: the name of the user. For example:
-
-Chetan
-Usually, though, an application needs to keep track of more than just one piece of information, so configuration often uses a key and a value:
-
-NAME='Chetan'
-SURNAME='Nada'
-Q: What are React Hooks?
-A: In React version 16.8, React introduced a new pattern called Hooks. React Hooks are simple JavaScript functions that we can use to isolate the reusable part from a functional component. Hooks can be stateful and can manage side-effects. Hooks allow you to reuse stateful logic without changing your component hierarchy. This makes it easy to share Hooks among many components or with the community.
-
-React provides a bunch of standard in-built hooks:
-useState: To manage states. Returns a stateful value and an updater function to update it.
-useEffect: To manage side-effects like API calls, subscriptions, timers, mutations, and more.
-useContext: To return the current value for a context.
-useReducer: A useState alternative to help with complex state management.
-useCallback: It returns a memorized version of a callback to help a child component not re-render unnecessarily.
-useMemo: It returns a memoized value that helps in performance optimizations.
-useRef: It returns a ref object with a current property. The ref object is mutable. It is mainly used to access a child component imperatively.
-useLayoutEffect: It fires at the end of all DOM mutations. It's best to use useEffect as much as possible over this one as the useLayoutEffect fires synchronously.
-useDebugValue: Helps to display a label in React DevTools for custom hooks.
-Q: Why do we need useState Hook?
-A: useState hook is used to maintain the state in our React application. It keeps track of the state changes so basically useState has the ability to encapsulate local state in a functional component. The useState hook is a special function that takes the initial state as an argument and returns an array of two entries. UseState encapsulate only singular value from the state, for multiple state need to have useState calls.
-
-Syntax for useState hook
-const [state, setState] = useState(initialstate);
-Importing: To use useState you need to import useState from react as shown below:
-import React, { useState } from "react";
-we can use Hooks in Functional Components
-
-const Example = (props) => {
-  // You can use Hooks here!
-  return <div />;
-}
+Q: (Research) Why can't we have the callback function of useEffect async?
+A: useEffect expects it's callback function to return nothing or return a function (cleanup function that is called when the component is unmounted). If we make the callback function as async, it will return a promise and the promise will affect the clean-up function from being called.

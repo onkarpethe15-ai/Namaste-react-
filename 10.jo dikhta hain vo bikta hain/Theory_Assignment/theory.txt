@@ -1,0 +1,65 @@
+Q what are diff way of writing cSS
+
+diff way of writing css are
+1. Normal Css
+2.React styled components
+3. Scss or Sass
+3.CSS frameworks like tailwind,bootstrap, chakra ui
+
+Q how to configure tailwind css for parcel
+
+step 1 => create project
+          mkdir my-project
+          cd my-project
+          npm init -y
+          npm install -D parcel
+          mkdir src
+          touch src/index.html
+
+step 2 => install tailwind css
+          
+          npm install -D tailwindcss postcss
+          npx tailwindcss init
+
+step 3 => Configure Postcss
+          {
+      "plugins": {
+      "tailwindcss": {}
+         }
+      }
+
+step 4 => Configure your template paths in tailwind.config.js
+          content: [
+           "./src/**/*.{html,js,ts,jsx,tsx}",
+            ],
+
+step 5 => Add the Tailwind directives to your CSS
+          @tailwind base;
+          @tailwind components;
+          @tailwind utilities;
+step 6 => link style sheet to inde.html 
+
+
+
+Q in tailwind css config.js whaat does all the key mean ( contet ,theme ,plufin?)
+
+  => content: This key specifies the files that Tailwind CSS should scan for classes togenerate CSS for. It uses a glob pattern to specify which files should be included in the scanning process. In your example, it's configured to scan all HTML, JavaScript, TypeScript, JSX, and TSX files within the "./src" directory and its subdirectories.
+
+     theme: This key is used to customize or extend the default theme provided by Tailwind CSS. You can define various theme options here to change the colors, typography, spacing, and     other design-related aspects of your project.
+
+plugins: This key allows you to include any Tailwind CSS plugins that you want to use in your project. Plugins can add additional utility classes and functionality to Tailwind CSS.
+
+
+Q why do we have postcssrc file in tailwind ?
+  Tailwind CSS and PostCSS Integration: Tailwind CSS is built on top of PostCSS. To use Tailwind CSS effectively, you need to ensure that PostCSS is set up correctly to process your CSS files. This includes setting up plugins, specifying the order of processing, and other PostCSS-related configurations.
+
+PostCSS Plugins: In many projects, you might use various PostCSS plugins alongside Tailwind CSS. These plugins can perform tasks like autoprefixing, minification, nesting, and more. The postcss.config.js or postcssrc.js file is where you specify these plugins and their options.
+
+Custom Configuration: You might need to customize the PostCSS configuration for your project. This could involve setting custom plugins, modifying the order of processing, or tweaking other PostCSS options to suit your project's specific requirements.
+
+Environmental Configuration: Different environments (e.g., development and production) might require different PostCSS configurations. Having a dedicated configuration file allows you to define environment-specific settings.
+
+Here's an example of what a postcss.config.js file might look like in a project that uses Tailwind CSS along with some common PostCSS plugins
+
+
+         
